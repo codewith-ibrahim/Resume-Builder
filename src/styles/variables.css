@@ -1,0 +1,33 @@
+/* src/styles/variables.css */
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+    --theme-color: #2563eb;
+    --theme-color-500: #2563eb;
+    --secondary-color: #9333ea;
+    --secondary-color-500: #7e22ce;
+    --secondary-color-300: #c084fc;
+    --secondary-color-100: #f3e8ff;
+    --primary-indigo: #4F46E5;
+    --secondary-emerald: #10B981;
+    --neutral-background: #F9FAFB;
+    --grey-color: #6b7280;
+    --white: #ffffff;
+    --black: #000000;
+  }
+  
+  @theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+  }
+  
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --background: #fff;
+      --foreground: #ededed;
+    }
+  }
+  
