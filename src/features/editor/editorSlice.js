@@ -2,9 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sections: [
-    { id: "about", title: "About Me", content: "Write something here..." },
-    { id: "skills", title: "Skills", content: "" },
+    { id: 1, title: "About", content: "" },
+    { id: 2, title: "Skills", content: "" },
+    { id: 3, title: "Experience", content: "" },
+    { id: 4, title: "Education", content: "" },
+    { id: 5, title: "Contact", content: "" },
   ],
+  
 };
 
 const editorSlice = createSlice({

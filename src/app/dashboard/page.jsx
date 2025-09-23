@@ -1,9 +1,6 @@
-import React from 'react'
+// app/dashboard/page.jsx  (My Resumes)
+import ResumeList from "@/components/dashboard/ResumeList";
 
-const page = () => {
-  return (
-    <div>page</div>
-  )
+export default function MyResumesPage() {
+  return <ResumeList />;
 }
-
-export default page

@@ -1,9 +1,4 @@
-import React from 'react'
-
-const page = () => {
-  return (
-    <div>page</div>
-  )
+// app/dashboard/export/page.jsx
+export default function ExportPage() {
+  return <div>Export Section</div>;
 }
-
-export default page

@@ -1,23 +1,18 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import SectionList from "./components/SectionList";
+// app/dashboard/editor/page.jsx
 import LivePreview from "./components/LivePreview";
+import SectionForm from "./components/SectionForm";
+import SectionList from "./components/SectionList";
+import ThemeSwitcher from "./components/ThemeSwitcher";
 
 export default function EditorPage() {
   return (
-    <>
-      <Navbar />
-      <main className="p-8 grid grid-cols-2 gap-6">
-        <div>
-          <h1 className="text-xl font-bold mb-4">Edit Sections</h1>
-          <SectionList />
-        </div>
-        <div>
-          <h1 className="text-xl font-bold mb-4">Live Preview</h1>
-          <LivePreview />
-        </div>
-      </main>
-      <Footer />
-    </>
+    <div className="grid grid-cols-2 gap-6">
+      <div className="space-y-6">
+        <SectionForm />
+        <SectionList />
+        <ThemeSwitcher />
+      </div>
+      <LivePreview />
+    </div>
   );
 }

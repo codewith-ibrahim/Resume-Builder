@@ -4,13 +4,11 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation"; 
 import { Menu, X } from "lucide-react";
 import Button from "@/components/ui/buttons";
-import { useAuth } from "@clerk/nextjs";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname(); 
   const router = useRouter();
-  const { isSignedIn } = useAuth(); // Clerk hook
 
   const navLinks = [
     { href: "/", label: "Home" },
@@ -20,12 +18,14 @@ export default function Navbar() {
     { href: "/pricing", label: "Pricing" },
   ];
 
-  // ✅ Handle Create Resume click
+  // ✅ Handle Create Resume click (auth logic manually handle karoge)
   const handleCreateResume = () => {
+    const isSignedIn = false; // <-- yahan apna auth logic lagao (cookies, localStorage, backend token, etc.)
+    
     if (!isSignedIn) {
-      router.push("/login"); // redirect to login if not signed in
+      router.push("/login"); // not signed in → go to login
     } else {
-      router.push("/create-resume"); // if signed in, go to resume builder
+      router.push("/create-resume"); // signed in → go to builder
     }
   };
 
