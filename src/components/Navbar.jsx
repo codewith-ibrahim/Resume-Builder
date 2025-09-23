@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation"; 
+import { usePathname, useRouter } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import Button from "@/components/ui/buttons";
+import Image from "next/image";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const pathname = usePathname(); 
+  const pathname = usePathname();
   const router = useRouter();
 
   const navLinks = [
@@ -21,7 +22,7 @@ export default function Navbar() {
   // ✅ Handle Create Resume click (auth logic manually handle karoge)
   const handleCreateResume = () => {
     const isSignedIn = false; // <-- yahan apna auth logic lagao (cookies, localStorage, backend token, etc.)
-    
+
     if (!isSignedIn) {
       router.push("/login"); // not signed in → go to login
     } else {
@@ -45,7 +46,7 @@ export default function Navbar() {
           <nav className="hidden md:block">
             <ul className="flex items-center gap-8 text-black font-medium">
               {navLinks.map((item) => {
-                const isActive = pathname === item.href; 
+                const isActive = pathname === item.href;
                 return (
                   <li key={item.href}>
                     <Link

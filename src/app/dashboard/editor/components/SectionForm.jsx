@@ -1,149 +1,197 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSection } from "@/features/editor/editorSlice";
-import { PlusCircle } from "lucide-react";
+import {
+  updateAbout,
+  addSkill, removeSkill,
+  addExperience, updateExperience, removeExperience,
+  addEducation, updateEducation, removeEducation,
+  updateContact,
+} from "@/features/editor/editorSlice";
+import { PlusCircle, Trash2 } from "lucide-react";
 
 export default function ResumeForm() {
   const dispatch = useDispatch();
   const sections = useSelector((state) => state.editor.sections);
 
-  if (!sections || sections.length === 0) {
-    return (
-      <div className="p-4 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
-        ⚠️ No resume sections found
-      </div>
-    );
-  }
+  const getSection = (title) =>
+    sections.find((s) => s.title.toLowerCase() === title.toLowerCase());
+
+  const about = getSection("About");
+  const skills = getSection("Skills");
+  const exp = getSection("Experience");
+  const edu = getSection("Education");
+  const contact = getSection("Contact");
+
+  const baseField =
+    "w-full p-2 border rounded text-sm text-gray-900 " +
+    "focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 focus:text-indigo-600";
 
   return (
-    <form className="space-y-8">
-      {sections.map((section) => (
-        <div
-          key={section.id}
-          className="bg-white border border-gray-200 rounded-xl shadow-sm p-6 hover:shadow-md transition-all"
-        >
-          {/* Section Title */}
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-800">
-              {section.title}
-            </h3>
-
-            {section.title.toLowerCase() === "skills" && (
-              <button
-                type="button"
-                className="flex items-center gap-1 text-sm text-indigo-600 hover:text-indigo-800 font-medium"
-              >
-                <PlusCircle size={18} /> Add Skill
-              </button>
-            )}
-          </div>
-
-          {/* === Dynamic Inputs for Each Section === */}
-          {section.title.toLowerCase() === "about" && (
-            <textarea
-              rows={4}
-              className="w-full text-gray-900 p-3 border border-gray-300 rounded-lg 
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                         focus:border-indigo-500 transition-all duration-200 resize-none"
-              placeholder="Write a short professional summary about yourself..."
-              value={section.content}
-              onChange={(e) =>
-                dispatch(updateSection({ id: section.id, content: e.target.value }))
-              }
-            />
-          )}
-
-          {section.title.toLowerCase() === "skills" && (
-            <input
-              type="text"
-              className="w-full text-gray-900 p-3 border border-gray-300 rounded-lg 
-                         focus:outline-none focus:ring-2 focus:ring-indigo-500 
-                         focus:border-indigo-500 transition-all duration-200"
-              placeholder="Add your key skills (e.g. React, Node.js, UI/UX)"
-              value={section.content}
-              onChange={(e) =>
-                dispatch(updateSection({ id: section.id, content: e.target.value }))
-              }
-            />
-          )}
-
-          {section.title.toLowerCase() === "experience" && (
-            <div className="space-y-4">
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Job Title"
-              />
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Company Name"
-              />
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Years (e.g. 2020 - 2023)"
-              />
-              <textarea
-                rows={3}
-                className="w-full p-3 border rounded-lg resize-none"
-                placeholder="Describe your role and achievements..."
-              />
-            </div>
-          )}
-
-          {section.title.toLowerCase() === "education" && (
-            <div className="space-y-4">
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Degree / Program"
-              />
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="University / School"
-              />
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Years (e.g. 2019 - 2023)"
-              />
-            </div>
-          )}
-
-          {section.title.toLowerCase() === "contact" && (
-            <div className="space-y-4">
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Full Name"
-              />
-              <input
-                type="email"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Email Address"
-              />
-              <input
-                type="tel"
-                className="w-full p-3 border rounded-lg"
-                placeholder="Phone Number"
-              />
-              <input
-                type="text"
-                className="w-full p-3 border rounded-lg"
-                placeholder="LinkedIn / Portfolio URL"
-              />
-            </div>
-          )}
-
-          {/* Footer (helper text + char count) */}
-          <div className="flex justify-between items-center mt-2 text-xs text-gray-500">
-            <span className="italic">Tip: Keep it short and relevant</span>
-            <span>{section.content?.length || 0} chars</span>
-          </div>
+    <form className="space-y-10">
+      <div className="p-6 bg-white rounded-xl border shadow-sm">
+        <h5 className="text-sm font-semibold pb-4 text-gray-900">About</h5>
+        <textarea
+          rows={4}
+          className={`${baseField} resize-none`}
+          placeholder="Write a short professional summary..."
+          value={about.content}
+          onChange={(e) => dispatch(updateAbout(e.target.value))}
+        />
+      </div>
+      <div className="p-6 bg-white rounded-xl border shadow-sm">
+        <div className="flex justify-between items-center mb-4">
+          <h5 className="text-sm font-semibold pb-4 text-gray-900">Skills</h5>
+          <button
+            type="button"
+            onClick={() => dispatch(addSkill(""))}
+            className="flex items-center gap-1 text-indigo-600"
+          >
+            <PlusCircle size={18} /> Add Skill
+          </button>
         </div>
-      ))}
+        {skills.content.map((skill, i) => (
+          <div key={i} className="flex items-center gap-2 mb-2">
+            <input
+              className={baseField}
+              value={skill}
+              onChange={(e) => {
+                const arr = [...skills.content];
+                arr[i] = e.target.value;
+                dispatch(removeSkill(i));
+                dispatch(addSkill(e.target.value));
+              }}
+              placeholder="e.g. React"
+            />
+            <button
+              type="button"
+              onClick={() => dispatch(removeSkill(i))}
+              className="text-red-500"
+            >
+              <Trash2 size={16} />
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="p-6 bg-white rounded-xl border shadow-sm">
+        <div className="flex justify-between items-center mb-4">
+          <h5 className="text-sm font-semibold pb-4 text-gray-900">Experience</h5>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch(addExperience({ title: "", company: "", years: "", desc: "" }))
+            }
+            className="flex items-center gap-1 text-indigo-600"
+          >
+            <PlusCircle size={18} /> Add Job
+          </button>
+        </div>
+        {exp.content.map((job) => (
+          <div key={job.id} className="border p-4 rounded-lg mb-3 space-y-2">
+            <input
+              className={baseField}
+              placeholder="Job Title"
+              value={job.title}
+              onChange={(e) =>
+                dispatch(updateExperience({ id: job.id, field: "title", value: e.target.value }))
+              }
+            />
+            <input
+              className={baseField}
+              placeholder="Company"
+              value={job.company}
+              onChange={(e) =>
+                dispatch(updateExperience({ id: job.id, field: "company", value: e.target.value }))
+              }
+            />
+            <input
+              className={baseField}
+              placeholder="Years (e.g. 2021-2024)"
+              value={job.years}
+              onChange={(e) =>
+                dispatch(updateExperience({ id: job.id, field: "years", value: e.target.value }))
+              }
+            />
+            <textarea
+              className={`${baseField} resize-none`}
+              placeholder="Description"
+              value={job.desc}
+              onChange={(e) =>
+                dispatch(updateExperience({ id: job.id, field: "desc", value: e.target.value }))
+              }
+            />
+            <button
+              type="button"
+              onClick={() => dispatch(removeExperience(job.id))}
+              className="text-red-500 flex items-center gap-1"
+            >
+              <Trash2 size={16} /> Remove
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="p-6 bg-white rounded-xl border shadow-sm">
+        <div className="flex justify-between items-center mb-4">
+          <h5 className="text-sm font-semibold text-gray-900 pb-4">Education</h5>
+          <button
+            type="button"
+            onClick={() =>
+              dispatch(addEducation({ degree: "", school: "", years: "" }))
+            }
+            className="flex items-center gap-1 text-indigo-600"
+          >
+            <PlusCircle size={18} /> Add Degree
+          </button>
+        </div>
+        {edu.content.map((ed) => (
+          <div key={ed.id} className="border p-4 rounded-lg mb-3 space-y-2">
+            <input
+              className={baseField}
+              placeholder="Degree / Program"
+              value={ed.degree}
+              onChange={(e) =>
+                dispatch(updateEducation({ id: ed.id, field: "degree", value: e.target.value }))
+              }
+            />
+            <input
+              className={baseField}
+              placeholder="University / School"
+              value={ed.school}
+              onChange={(e) =>
+                dispatch(updateEducation({ id: ed.id, field: "school", value: e.target.value }))
+              }
+            />
+            <input
+              className={baseField}
+              placeholder="Years"
+              value={ed.years}
+              onChange={(e) =>
+                dispatch(updateEducation({ id: ed.id, field: "years", value: e.target.value }))
+              }
+            />
+            <button
+              type="button"
+              onClick={() => dispatch(removeEducation(ed.id))}
+              className="text-red-500 flex items-center gap-1"
+            >
+              <Trash2 size={16} /> Remove
+            </button>
+          </div>
+        ))}
+      </div>
+      <div className="p-6 bg-white rounded-xl border shadow-sm">
+        <h5 className="text-sm font-semibold mb-4 text-gray-900 pb-4">Contact</h5>
+        {["name", "email", "phone", "link"].map((field) => (
+          <input
+            key={field}
+            className={`${baseField} mb-2`}
+            placeholder={field === "link" ? "LinkedIn / Portfolio" : field}
+            value={contact.content[field] || ""}
+            onChange={(e) =>
+              dispatch(updateContact({ [field]: e.target.value }))
+            }
+          />
+        ))}
+      </div>
     </form>
   );
 }
