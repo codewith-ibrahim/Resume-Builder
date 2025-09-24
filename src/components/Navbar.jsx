@@ -13,20 +13,16 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/how-it-works", label: "How it works" },
-    { href: "/templates", label: "Templates" },
-    { href: "/features", label: "Features" },
-    { href: "/pricing", label: "Pricing" },
+    { href: "/resume-example", label: "Resume Example" },
+    { href: "/resume-template", label: "Resume Templates" }
   ];
 
-  // ✅ Handle Create Resume click (auth logic manually handle karoge)
   const handleCreateResume = () => {
-    const isSignedIn = false; // <-- yahan apna auth logic lagao (cookies, localStorage, backend token, etc.)
-
+    const isSignedIn = false;
     if (!isSignedIn) {
-      router.push("/login"); // not signed in → go to login
+      router.push("/login"); 
     } else {
-      router.push("/create-resume"); // signed in → go to builder
+      router.push("/create-resume");
     }
   };
 
@@ -78,7 +74,7 @@ export default function Navbar() {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-gray-700"
+            className="md:hidden text-black"
             onClick={() => setOpen(!open)}
           >
             {open ? <X size={28} /> : <Menu size={28} />}
@@ -98,7 +94,7 @@ export default function Navbar() {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className={pathname === item.href ? "text-[var(--primary-indigo)] font-semibold" : ""}
+              className={pathname === item.href ? "text-[var(--primary-indigo)] font-semibold" : "text-black font-semibold"}
             >
               {item.label}
             </Link>

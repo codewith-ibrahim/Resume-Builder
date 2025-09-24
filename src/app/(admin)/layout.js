@@ -1,11 +1,11 @@
+// app/(admin)/layout.js
 "use client";
 import { useState } from "react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 
-export default function DashboardLayout({ children }) {
+export default function AdminLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
-
   const sidebarWidth = collapsed ? "5rem" : "16rem";
 
   return (
