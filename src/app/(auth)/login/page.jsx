@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "@/features/auth/authSlice";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const dispatch = useDispatch();
@@ -77,8 +78,18 @@ export default function LoginPage() {
             {status === "loading" ? "Logging in..." : "Login"}
           </button>
         </form>
+      <p className="text-sm text-center mt-4 text-gray-600">
+        Don’t have an account?{" "}
+        <Link
+          href="/signup"
+          className="text-[var(--primary-indigo)] font-medium hover:underline"
+        >
+          Sign Up
+        </Link>
+      </p>
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
       </div>
+
     </div>
   );
 }
