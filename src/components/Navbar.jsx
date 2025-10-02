@@ -33,7 +33,7 @@ export default function Navbar() {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-indigo-600">
+            <span className="text-xl font-bold text-[var(--primary-indigo)]">
               🎓 Resume Builder
             </span>
           </div>
@@ -52,7 +52,7 @@ export default function Navbar() {
                       {item.label}
                       <span
                         className={`
-                          absolute left-0 -bottom-1 h-[2px] 
+                          absolute left-0 -bottom-1 h-[3px] 
                           bg-[var(--primary-indigo)] 
                           transition-all duration-300 
                           ${isActive ? "w-full" : "w-0 group-hover:w-full"}
@@ -84,7 +84,7 @@ export default function Navbar() {
 
       {/* Mobile Side Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-white shadow-2xl transform transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-[70%] bg-white shadow-2xl transform transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >

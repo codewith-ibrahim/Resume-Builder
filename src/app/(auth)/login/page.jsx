@@ -45,8 +45,8 @@ export default function LoginPage() {
               id="email"
               type="email"
               placeholder="Enter your email"
-              className="border border-gray-300 rounded-lg p-3 w-full 
-                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="text-black border border-gray-300 rounded-lg p-3 w-full 
+                 focus:outline-none focus:ring-2 focus:ring-[var(--primary-indigo)] focus:border-[var(--primary-indigo)]"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
             />
@@ -62,8 +62,8 @@ export default function LoginPage() {
               id="password"
               type="password"
               placeholder="Enter your password"
-              className="border border-gray-300 rounded-lg p-3 w-full 
-                 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="text-black border border-gray-300 rounded-lg p-3 w-full 
+                 focus:outline-none focus:ring-2 focus:ring-[var(--primary-indigo)] focus:border-[var(--primary-indigo)]"
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
             />
@@ -71,8 +71,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full bg-[var(--primary-indigo)] hover:bg-indigo-700 
-               text-white py-3 rounded-lg transition font-medium"
+            className="w-full bg-[var(--primary-indigo)] hover:bg-transparent border border-[var(--primary-indigo)] hover:text-[var(--primary-indigo)] 
+               text-white py-3 rounded-lg transition font-medium cursor-pointer"
           >
             {status === "loading" ? "Logging in..." : "Login"}
           </button>

@@ -71,7 +71,7 @@ html {
   }
   ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    background: var(--theme-color);
+    background: var(--primary-indigo);
   }
   
   /* Number input fix */
@@ -169,7 +169,7 @@ html {
   }
   
   /* Container helpers */
-  .customContainer {
+.customContainer {
     @apply container mx-auto md:px-12 sm:px-3 px-8;
   }
   .largeContainer {

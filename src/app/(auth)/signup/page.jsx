@@ -29,7 +29,7 @@ export default function SignupPage() {
     >
       <div className="absolute inset-0 bg-black/60"></div>
       <div className="relative z-10 max-w-sm w-full mx-auto p-8 bg-white/90 rounded-2xl shadow-lg backdrop-blur-md">
-        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800 py-4">
           Sign Up
         </h2>
 
@@ -45,8 +45,8 @@ export default function SignupPage() {
               id="username"
               type="text"
               placeholder="Enter your username"
-              className="border border-gray-300 rounded-lg p-3 w-full 
-           text-gray-900 placeholder-gray-400
+              className="text-black border border-gray-300 rounded-lg p-3 w-full 
+            placeholder-gray-400
            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               value={form.username}
               onChange={(e) => setForm({ ...form, username: e.target.value })}
@@ -63,7 +63,7 @@ export default function SignupPage() {
               id="email"
               type="email"
               placeholder="Enter your email"
-              className="border border-gray-300 rounded-lg p-3 w-full 
+              className="text-black border border-gray-300 rounded-lg p-3 w-full 
                    focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               value={form.email}
               onChange={(e) => setForm({ ...form, email: e.target.value })}
@@ -80,7 +80,7 @@ export default function SignupPage() {
               id="password"
               type="password"
               placeholder="Enter your password"
-              className="border border-gray-300 rounded-lg p-3 w-full 
+              className="text-black border border-gray-300 rounded-lg p-3 w-full 
            text-gray-900 placeholder-gray-400
            focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
               value={form.password}
@@ -90,10 +90,10 @@ export default function SignupPage() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="w-full bg-indigo-600 hover:bg-indigo-700 
-                 text-white py-3 rounded-lg transition font-medium"
+            className="w-full bg-[var(--primary-indigo)] hover:bg-transparent border border-[var(--primary-indigo)] hover:text-[var(--primary-indigo)] 
+               text-white py-3 rounded-lg transition font-medium cursor-pointer"
           >
-            {status === "loading" ? "Signing up..." : "Sign Up"}
+            {status === "loading" ? "Logging in..." : "Login"}
           </button>
         </form>
         {error && <p className="text-red-500 mt-4 text-center">{error}</p>}

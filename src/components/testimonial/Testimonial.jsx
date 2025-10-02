@@ -11,19 +11,19 @@ const testimonials = [
   {
     name: "Ayesha Khan",
     role: "Frontend Developer",
-    avatar: "/user.jpg",
+    avatar: "testimonial/testimonial-1.jpg",
     text: "This resume builder saved me hours! I landed interviews quickly."
   },
   {
     name: "Daniel Smith",
     role: "Product Designer",
-    avatar: "/user.jpg",
+    avatar: "testimonial/testimonial-2.webp",
     text: "The drag-and-drop UI is brilliant. Exporting to PDF was seamless."
   },
   {
     name: "Sara Ahmed",
     role: "Marketing Specialist",
-    avatar: "/user.jpg",
+    avatar: "testimonial/testimonial-3.webp",
     text: "Loved the templates and the live preview. Highly recommended!"
   },
   {
@@ -48,12 +48,8 @@ const testimonials = [
 
 export default function Testimonial() {
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4">
-        {/* <h2 className="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12 pb-4">
-          What Our Users Say
-        </h2> */}
-
+    <section className="p-0 bg-gray-50">
+      <div className="customContainer py-16">
         <Swiper
           modules={[Navigation, Pagination, A11y]}
           spaceBetween={30}
