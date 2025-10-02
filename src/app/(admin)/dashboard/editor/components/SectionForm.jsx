@@ -2,12 +2,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateAbout,
-  addSkill, removeSkill,
+  addSkill, updateSkill, removeSkill,
   addExperience, updateExperience, removeExperience,
   addEducation, updateEducation, removeEducation,
   updateContact,
 } from "@/features/editor/editorSlice";
-import { PlusCircle, Trash2 } from "lucide-react";
+
+import { PlusCircle, Trash2, Download } from "lucide-react";
 
 export default function ResumeForm() {
   const dispatch = useDispatch();
@@ -50,27 +51,25 @@ export default function ResumeForm() {
           </button>
         </div>
         {skills.content.map((skill, i) => (
-          <div key={i} className="flex items-center gap-2 mb-2">
-            <input
-              className={baseField}
-              value={skill}
-              onChange={(e) => {
-                const arr = [...skills.content];
-                arr[i] = e.target.value;
-                dispatch(removeSkill(i));
-                dispatch(addSkill(e.target.value));
-              }}
-              placeholder="e.g. React"
-            />
-            <button
-              type="button"
-              onClick={() => dispatch(removeSkill(i))}
-              className="text-red-500"
-            >
-              <Trash2 size={16} />
-            </button>
-          </div>
-        ))}
+  <div key={i} className="flex items-center gap-2 mb-2">
+    <input
+      className={baseField}
+      value={skill}
+      onChange={(e) =>
+        dispatch(updateSkill({ index: i, value: e.target.value }))
+      }
+      placeholder="e.g. React"
+    />
+    <button
+      type="button"
+      onClick={() => dispatch(removeSkill(i))}
+      className="text-red-500"
+    >
+      <Trash2 size={16} />
+    </button>
+  </div>
+))}
+
       </div>
       <div className="p-6 bg-white rounded-xl border shadow-sm">
         <div className="flex justify-between items-center mb-4">
