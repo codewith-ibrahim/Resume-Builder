@@ -2,39 +2,52 @@
 
 import ResumeForm from "./components/SectionForm";
 import LivePreview from "./components/LivePreview";
-import Button from "@/components/ui/buttons"; // aapke repo me ye filename maujood hai
+import Button from "@/components/ui/buttons";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import { toPng } from "html-to-image";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 
 export default function EditorPage() {
   const sections = useSelector((state) => state.editor.sections);
   const router = useRouter();
 
-  // Export visible preview to PDF
   const handleExportPDF = async () => {
     const preview = document.getElementById("resume-preview");
     if (!preview) return alert("Preview element not found.");
 
-    // increase scale for better quality
-    const canvas = await html2canvas(preview, { scale: 2, useCORS: true });
-    const imgData = canvas.toDataURL("image/png");
+    if (preview.innerHTML.trim() === "") {
+      return alert(
+        "Resume preview is empty, please add content before exporting."
+      );
+    }
 
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    try {
+      const imgData = await toPng(preview, { cacheBust: true });
 
-    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    pdf.save("resume.pdf");
+      if (!imgData) {
+        return alert("Failed to generate image from preview.");
+      }
+
+      const pdf = new jsPDF("p", "mm", "a4");
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+
+      const img = new Image();
+      img.src = imgData;
+
+      img.onload = () => {
+        const pdfHeight = (img.height * pdfWidth) / img.width;
+        pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+        pdf.save("my-resume.pdf");
+      };
+    } catch (err) {
+      console.error("PDF export failed:", err);
+      alert("Something went wrong while exporting PDF.");
+    }
   };
-
-  // Save the redux sections to localStorage and navigate to export page
   const handleSaveAndView = () => {
     if (!sections) return alert("Nothing to save.");
     localStorage.setItem("resumeData", JSON.stringify(sections));
-    // adjust path if your route is different
     router.push("/dashboard/export");
   };
 
@@ -47,8 +60,6 @@ export default function EditorPage() {
       <div>
         <LivePreview />
       </div>
-
-      {/* Buttons row spans both columns */}
       <div className="col-span-2 flex justify-center gap-4 mt-4">
         <Button variant="primary" onClick={handleExportPDF}>
           Export as PDF

@@ -23,7 +23,6 @@ export default function LivePreview({ sections: propSections }) {
   const contact = getSection("Contact");
 
   return (
-    // IMPORTANT: id used by html2canvas
     <div id="resume-preview" className="p-6 border rounded-lg bg-white shadow-sm space-y-8">
       {about && about.content && (
         <section>
