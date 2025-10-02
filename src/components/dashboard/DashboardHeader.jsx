@@ -2,12 +2,21 @@
 import { useState } from "react";
 import { LogOut } from "lucide-react";
 import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "@/features/auth/authSlice";
+import { useRouter } from "next/navigation";
 
 export default function DashboardHeader({ sidebarWidth }) {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const router = useRouter();
+
+  if (!user) return null; // <- agar login nahi hai toh header hi mat dikhao
 
   const handleLogout = () => {
-    console.log("User logged out");
+    dispatch(logout());
+    router.push("/login"); // logout ke baad login page
   };
 
   return (
@@ -24,6 +33,7 @@ export default function DashboardHeader({ sidebarWidth }) {
         <h1 className="text-3xl font-bold text-white">My Resumes</h1>
         <p className="text-black">Manage, create, and export your resumes</p>
       </div>
+
       <div className="relative">
         <button
           onClick={() => setOpen((prev) => !prev)}
@@ -31,8 +41,8 @@ export default function DashboardHeader({ sidebarWidth }) {
                      bg-white/80 hover:bg-white focus:outline-none"
         >
           <Image
-            width={10}
-            height={10}
+            width={40}
+            height={40}
             src="/user.jpg"
             alt="User avatar"
             className="w-10 h-10 rounded-full object-cover"
